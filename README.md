@@ -1,8 +1,8 @@
 # libappearancecell
 
-![example usage](https://cdn.discordapp.com/attachments/643863144091090964/679285839246655488/image0.png)
-
 libappearancecell is a library for jailbroken iOS devices that allows developers to use an iOS 13-style appearance selector in their Preferences. 
+
+<img src="https://cdn.discordapp.com/attachments/643863144091090964/679285839246655488/image0.png" alt="example usage" width="350"/>
 
 ## Usage
 The setup of libappearancecell is very simple, just follow these () simple steps and you should be good to go!
