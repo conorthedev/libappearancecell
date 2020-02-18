@@ -17,7 +17,7 @@ The setup of libappearancecell is very simple, just follow these () simple steps
 ### AppearanceSelectionTableCell
 This is the main class for libappearancecell, it handles everything.
 + Example of usage in a Preferences Specifier:
-```plist
+```xml
 <dict>
     <key>cell</key>
     <string>PSDefaultCell</string>
