@@ -2,8 +2,8 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h> 
 
-@interface NSUserDefaults (Private)
-- (instancetype)_initWithSuiteName:(NSString *)suiteName container:(NSURL *)container;
+@interface UIImage (Private)
++ (UIImage*)kitImageNamed:(NSString*)name;
 @end
 
 @interface AppearanceTypeStackView ()
