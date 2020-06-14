@@ -5,7 +5,7 @@ libappearancecell is a library for jailbroken iOS devices that allows developers
 <img src="https://cdn.discordapp.com/attachments/643863144091090964/679285839246655488/image0.png" alt="example usage" width="350"/>
 
 ## Usage
-The setup of libappearancecell is very simple, just follow these 4simple steps and you should be good to go!
+The setup of libappearancecell is very simple, just follow these 5 simple steps and you should be good to go!
 - 1: Clone or [download](https://github.com/cbyrne/libappearancecell/archive/master.zip) this repository
     - ``git clone https://github.com/cbyrne/libappearancecell.git``
 - 2: ``cd libapperancecell && make do``
