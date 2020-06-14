@@ -14,7 +14,7 @@ The setup of libappearancecell is very simple, just follow these 5 simple steps 
 - 3: Add ``$(BUNDLE_NAME)_LIBRARIES = appearancecell`` to your Preferences Makefile
 - 4: Import AppearanceSelectionTableCell.h
     - ```objc
-        #import <libappearancecell/AppearanceSelectionTableCell.h>
+        #import <libappearancecell/libappearancecell.h>
       ```
 - 5: Check out the example below for how to use it in your Preferences!
 
