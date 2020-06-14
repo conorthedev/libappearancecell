@@ -29,9 +29,9 @@ This is the main class for libappearancecell, it handles everything.
     <key>cellClass</key>
     <string>AppearanceSelectionTableCell</string>
     <key>firstOptionName</key>
-    <string>option 1</string>
+    <string>Option 1</string>
     <key>secondOptionName</key>
-    <string>option 2</string>
+    <string>Option 2</string>
     <key>firstOptionImage</key>
     <string>/Library/PreferenceBundles/libappearancecell_demo.bundle/demo.png</string>
     <key>secondOptionImage</key>
@@ -42,8 +42,6 @@ This is the main class for libappearancecell, it handles everything.
     <string>me.conorthedev.libappearancecell.demo/reload</string>
     <key>key</key>
     <string>appearance</string>
-    <key>height</key>
-    <integer>160</integer>
 </dict>
 ```
 #### All keys listed above are *required*, failing to supply these will make it not work.
