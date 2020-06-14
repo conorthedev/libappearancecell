@@ -8,7 +8,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Example of AppearanceSelectionTableCell</string>
+			<string>Example</string>
 		</dict>
 		<dict>
             <key>cell</key>
