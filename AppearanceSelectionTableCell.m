@@ -142,12 +142,9 @@ NSUserDefaults *userDefaults;
     return self;
 }
 
-- (CGFloat)preferredHeightForWidth:(CGFloat)arg1 {
-    return 160.0f;
-}
-
-- (CGFloat)preferredHeightForWidth:(CGFloat)width inTableView:(id)tableView {
-    return [self preferredHeightForWidth:width];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 160.0f);
 }
 
 - (void)updateForType:(int)type {
