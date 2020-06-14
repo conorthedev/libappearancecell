@@ -1,5 +1,6 @@
 TARGET = iphone:clang:13.0:11.0
 ARCHS = arm64 arm64e
+INSTALL_TARGETS_PROCESS = Preferences
 
 include $(THEOS)/makefiles/common.mk
 
@@ -12,11 +13,8 @@ libappearancecell_demo_LIBRARIES = appearancecell
 libappearancecell_demo_PRIVATE_FRAMEWORKS = Preferences
 libappearancecell_demo_CFLAGS = -fobjc-arc
 
-include $(THEOS_MAKE_PATH)/bundle.mk
-
 internal-stage::
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences$(ECHO_END)
 	$(ECHO_NOTHING)cp entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/libappearancecell_demo.plist$(ECHO_END)
 
-after-install::
-	killlall -9 Preferences
+include $(THEOS_MAKE_PATH)/bundle.mk
