@@ -14,11 +14,6 @@ NSUserDefaults *userDefaults;
 - (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller {
     self = [super init];
     if (self) {
-        userDefaults = [[NSUserDefaults alloc]
-            _initWithSuiteName:defaultsIdentifier
-                    container:[NSURL URLWithString:@"/var/mobile"]];
-        [userDefaults registerDefaults:@{ key : @0 }];
-
         self.hostController = controller;
         self.captionLabel = [[UILabel alloc] init];
         self.checkmarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -36,12 +31,11 @@ NSUserDefaults *userDefaults;
             self.captionLabel.text = firstOptionName;
         }
 
-        NSNumber *appearanceStyle = (NSNumber *)[userDefaults objectForKey:key];
-        if ([appearanceStyle isEqualToNumber:[NSNumber numberWithInt:self.type]]) {
-            [self.checkmarkButton setImage:[UIImage imageWithContentsOfFile:@"/Library/Application Support/libappearancecell/selected.png"] forState:UIControlStateNormal];
-        } else {
-            [self.checkmarkButton setImage:[UIImage imageWithContentsOfFile:@"/Library/Application Support/libappearancecell/notselected.png"] forState:UIControlStateNormal];
-        }
+        int appearanceStyle = [[userDefaults objectForKey:key] intValue];
+        self.checkmarkButton.selected = appearanceStyle == self.type;
+        
+        [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UIRemoveControlMultiNotCheckedImage.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UITintedCircularButtonCheckmark.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
 
         self.iconView = [[UIImageView alloc] initWithImage:self.iconImage];
         self.iconView.contentMode = UIViewContentModeScaleAspectFit;
@@ -74,8 +68,7 @@ NSUserDefaults *userDefaults;
         self.contentStackview.translatesAutoresizingMaskIntoConstraints = false;
         self.translatesAutoresizingMaskIntoConstraints = false;
 
-        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                    action:@selector(buttonTapped)];
+        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped)];
         self.tapGestureRecognizer.numberOfTapsRequired = 1;
 
         [self addSubview:self.contentStackview];
@@ -85,6 +78,7 @@ NSUserDefaults *userDefaults;
         [self.widthAnchor constraintEqualToConstant:85].active = true;
         [self.heightAnchor constraintEqualToConstant:140].active = true;
     }
+
     return self;
 }
 
@@ -114,6 +108,9 @@ NSUserDefaults *userDefaults;
         defaultsIdentifier = specifier.properties[@"defaults"];
         postNotification = specifier.properties[@"PostNotification"];
         key = specifier.properties[@"key"];
+        
+        userDefaults = [[NSUserDefaults alloc] initWithSuiteName:defaultsIdentifier];
+        [userDefaults registerDefaults:@{ key : @0 }];
 
         self.firstStackView = [[AppearanceTypeStackView alloc] initWithType:0 forController:self];
         self.secondStackView = [[AppearanceTypeStackView alloc] initWithType:1 forController:self];
@@ -148,36 +145,8 @@ NSUserDefaults *userDefaults;
 }
 
 - (void)updateForType:(int)type {
-    AppearanceTypeStackView *notSelect;
-    AppearanceTypeStackView *toSelect;
-
-    if (type == 1) {
-        notSelect = self.firstStackView;
-        toSelect = self.secondStackView;
-    } else {
-        notSelect = self.secondStackView;
-        toSelect = self.firstStackView;
-    }
-
-    [UIView transitionWithView:notSelect.checkmarkButton
-        duration:0.2f
-        options:UIViewAnimationOptionTransitionCrossDissolve
-        animations:^{
-            [toSelect.checkmarkButton setImage:[UIImage imageWithContentsOfFile:@"/Library/Application Support/libappearancecell/notselected.png"] forState:UIControlStateNormal];
-        } completion:^(BOOL finished) {
-            finished = YES;
-        }
-    ];
-
-    [UIView transitionWithView:toSelect.checkmarkButton
-        duration:0.2f
-        options:UIViewAnimationOptionTransitionCrossDissolve
-        animations:^{
-            [toSelect.checkmarkButton setImage:[UIImage imageWithContentsOfFile:@"/Library/Application Support/libappearancecell/selected.png"] forState:UIControlStateNormal];
-        } completion:^(BOOL finished) {
-            finished = YES;
-        }
-    ];
+    self.firstStackView.checkmarkButton.selected = self.firstStackView.type == type;
+    self.secondStackView.checkmarkButton.selected = self.secondStackView.type == type;
 }
 
 @end
