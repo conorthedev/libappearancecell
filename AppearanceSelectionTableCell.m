@@ -108,20 +108,11 @@ NSUserDefaults *userDefaults;
         self.containerStackView.spacing = 40;
         self.containerStackView.translatesAutoresizingMaskIntoConstraints = NO;
 
-        NSBundle *prefsBundle;
-        for (NSBundle *bundle in [NSBundle allBundles]) {
-            Class target = [bundle classNamed:NSStringFromClass([specifier.target class])];
-            if(target != NULL) {
-                // We found our bundle!
-                prefsBundle = bundle;
-                break;
-            }
-        }
-
+        NSBundle *prefsBundle = [NSBundle bundleForClass:[specifier.target class]];
         for (NSDictionary *option in self.options) {
             AppearanceTypeStackView *stackView = [[AppearanceTypeStackView alloc] initWithType:[self.options indexOfObject:option] 
                                                                                   forController:self 
-                                                                                  withImage:[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", [prefsBundle bundlePath], option[@"image"]]] 
+                                                                                  withImage:[UIImage imageNamed:option[@"image"] inBundle:prefsBundle compatibleWithTraitCollection:NULL]
                                                                                   andText:option[@"text"]];
             [self.containerStackView addArrangedSubview:stackView];
         }
@@ -139,11 +130,6 @@ NSUserDefaults *userDefaults;
 - (AppearanceSelectionTableCell *)initWithSpecifier:(PSSpecifier *)specifier {
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AppearanceSelectionTableCell" specifier:specifier];
     return self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 160.0f);
 }
 
 - (void)updateForType:(int)type {
