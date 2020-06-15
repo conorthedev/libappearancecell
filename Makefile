@@ -1,5 +1,7 @@
 TARGET = iphone:clang:13.0:11.0
 ARCHS = arm64 arm64e
+DEBUG = 0
+FINALPACKAGE = 1
 
 include $(THEOS)/makefiles/common.mk
 
@@ -11,7 +13,7 @@ libappearancecell_FRAMEWORKS = UIKit
 libappearancecell_PRIVATE_FRAMEWORKS = Preferences
 
 after-all::
-	cp .theos/obj/debug/libappearancecell.dylib $(THEOS)/lib
+	cp .theos/obj/libappearancecell.dylib $(THEOS)/lib
 	mkdir -p $(THEOS_STAGING_DIR)/usr/include/libappearancecell
 	cp libappearancecell.h $(THEOS_STAGING_DIR)/usr/include/libappearancecell
 	cp libappearancecell.h $(THEOS)/include/libappearancecell/libappearancecell
