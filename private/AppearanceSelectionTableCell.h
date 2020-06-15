@@ -17,6 +17,6 @@
 @property(nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 @property(nonatomic, assign) int type;
 
-- (id)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller;
+- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text;
 - (void)buttonTapped;
 @end

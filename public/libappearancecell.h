@@ -5,8 +5,7 @@
 
 @interface AppearanceSelectionTableCell : PSTableCell
 @property(nonatomic, retain) UIStackView *containerStackView;
-@property(nonatomic, retain) AppearanceTypeStackView *firstStackView;
-@property(nonatomic, retain) AppearanceTypeStackView *secondStackView;
+@property(nonatomic, retain) NSArray *options;
 
 - (void)updateForType:(int)type;
 @end

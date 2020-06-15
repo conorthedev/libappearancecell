@@ -1,9 +1,5 @@
 #import "private/AppearanceSelectionTableCell.h"
 
-NSString *firstOptionName;
-NSString *secondOptionName;
-NSString *firstOptionImage;
-NSString *secondOptionImage;
 NSString *defaultsIdentifier;
 NSString *postNotification;
 NSString *key;
@@ -11,7 +7,7 @@ NSUserDefaults *userDefaults;
 
 @implementation AppearanceTypeStackView
 
-- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller {
+- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text {
     self = [super init];
     if (self) {
         self.hostController = controller;
@@ -22,16 +18,12 @@ NSUserDefaults *userDefaults;
         self.feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:(UIImpactFeedbackStyleMedium)];
         [self.feedbackGenerator prepare];
 
-        self.type = type;
-        if (self.type == 1) {
-            self.iconImage = [UIImage imageWithContentsOfFile:secondOptionImage];
-            self.captionLabel.text = secondOptionName;
-        } else {
-            self.iconImage = [UIImage imageWithContentsOfFile:firstOptionImage];
-            self.captionLabel.text = firstOptionName;
-        }
+        self.iconImage = image;
+        self.captionLabel.text = text;
 
         int appearanceStyle = [[userDefaults objectForKey:key] intValue];
+        self.type = type;
+
         self.checkmarkButton.selected = appearanceStyle == self.type;
         
         [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UIRemoveControlMultiNotCheckedImage.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
@@ -40,7 +32,6 @@ NSUserDefaults *userDefaults;
         self.iconView = [[UIImageView alloc] initWithImage:self.iconImage];
         self.iconView.contentMode = UIViewContentModeScaleAspectFit;
         [self.iconView.heightAnchor constraintEqualToConstant:85].active = true;
-        [self.iconView.widthAnchor constraintEqualToConstant:85].active = true;
 
         [self.captionLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
         [self.captionLabel.heightAnchor constraintEqualToConstant:20].active = true;
@@ -76,6 +67,7 @@ NSUserDefaults *userDefaults;
         [self.contentStackview addGestureRecognizer:self.tapGestureRecognizer];
 
         [self.widthAnchor constraintEqualToConstant:85].active = true;
+        [self.iconView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = true;
         [self.heightAnchor constraintEqualToConstant:140].active = true;
     }
 
@@ -101,10 +93,7 @@ NSUserDefaults *userDefaults;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
     if (self) {
-        firstOptionName = specifier.properties[@"firstOptionName"];
-        secondOptionName = specifier.properties[@"secondOptionName"];
-        firstOptionImage = specifier.properties[@"firstOptionImage"];
-        secondOptionImage = specifier.properties[@"secondOptionImage"];
+        self.options = specifier.properties[@"options"];
         defaultsIdentifier = specifier.properties[@"defaults"];
         postNotification = specifier.properties[@"PostNotification"];
         key = specifier.properties[@"key"];
@@ -112,18 +101,31 @@ NSUserDefaults *userDefaults;
         userDefaults = [[NSUserDefaults alloc] initWithSuiteName:defaultsIdentifier];
         [userDefaults registerDefaults:@{ key : @0 }];
 
-        self.firstStackView = [[AppearanceTypeStackView alloc] initWithType:0 forController:self];
-        self.secondStackView = [[AppearanceTypeStackView alloc] initWithType:1 forController:self];
-
         self.containerStackView = [[UIStackView alloc] init];
         self.containerStackView.axis = UILayoutConstraintAxisHorizontal;
         self.containerStackView.alignment = UIStackViewAlignmentCenter;
         self.containerStackView.distribution = UIStackViewDistributionEqualSpacing;
-        self.containerStackView.spacing = 50;
+        self.containerStackView.spacing = 40;
         self.containerStackView.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [self.containerStackView addArrangedSubview:self.firstStackView];
-        [self.containerStackView addArrangedSubview:self.secondStackView];
+        NSBundle *prefsBundle;
+        for (NSBundle *bundle in [NSBundle allBundles]) {
+            Class target = [bundle classNamed:NSStringFromClass([specifier.target class])];
+            if(target != NULL) {
+                // We found our bundle!
+                prefsBundle = bundle;
+                break;
+            }
+        }
+
+        for (NSDictionary *option in self.options) {
+            AppearanceTypeStackView *stackView = [[AppearanceTypeStackView alloc] initWithType:[self.options indexOfObject:option] 
+                                                                                  forController:self 
+                                                                                  withImage:[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", [prefsBundle bundlePath], option[@"image"]]] 
+                                                                                  andText:option[@"text"]];
+            [self.containerStackView addArrangedSubview:stackView];
+        }
+
         [self.contentView addSubview:self.containerStackView];
 
         [self.containerStackView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = true;
@@ -145,8 +147,9 @@ NSUserDefaults *userDefaults;
 }
 
 - (void)updateForType:(int)type {
-    self.firstStackView.checkmarkButton.selected = self.firstStackView.type == type;
-    self.secondStackView.checkmarkButton.selected = self.secondStackView.type == type;
+    for (AppearanceTypeStackView *subview in self.containerStackView.arrangedSubviews) {
+        subview.checkmarkButton.selected = subview.type == type;
+    }
 }
 
 @end
