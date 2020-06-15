@@ -1,4 +1,4 @@
-#import "../public/libappearancecell.h"
+#import "../libappearancecell.h"
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h> 
 
