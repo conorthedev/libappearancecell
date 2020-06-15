@@ -5,6 +5,8 @@ FINALPACKAGE = 1
 
 include $(THEOS)/makefiles/common.mk
 
+include $(THEOS)/makefiles/common.mk
+
 LIBRARY_NAME = libappearancecell
 
 libappearancecell_FILES = AppearanceSelectionTableCell.m
