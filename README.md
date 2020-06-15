@@ -33,19 +33,19 @@ This is the main class for libappearancecell, it handles everything.
             <key>text</key>
             <string>Light</string>
             <key>image</key>
-            <string>light.png</string>
+            <string>light</string>
         </dict>
         <dict>
             <key>text</key>
             <string>Dark</string>
             <key>image</key>
-            <string>dark.png</string>
+            <string>dark</string>
         </dict>
         <dict>
             <key>text</key>
             <string>Default</string>
             <key>image</key>
-            <string>default.png</string>
+            <string>default</string>
         </dict>
     </array>
     <key>defaults</key>
@@ -54,6 +54,8 @@ This is the main class for libappearancecell, it handles everything.
     <string>me.conorthedev.libappearancecell.demo/reload</string>
     <key>key</key>
     <string>appearance</string>
+    <key>height</key>
+    <integer>160</integer>
 </dict>
 ```
 #### All keys listed above are *required*, failing to supply these will make it not work.
