@@ -4,23 +4,21 @@
 libappearancecell is a library for jailbroken iOS devices that allows developers to use an iOS 13-style appearance selector in their Preferences. 
 
 ## Usage
-The setup of libappearancecell is very simple, just follow these 5 simple steps and you should be good to go!
-- 1: Clone or [download](https://github.com/cbyrne/libappearancecell/archive/master.zip) this repository
-    - ``git clone https://github.com/cbyrne/libappearancecell.git``
-- 2: Copy neccessary files and install libappearancecell to your device
-    - ``cd libapperancecell && make do``
-    - **Make sure you have the THEOS_DEVICE_IP variable set**
-- 3: Link libappearancecell in your bundle
+The setup of libappearancecell is very simple, just follow these 4 simple steps and you should be good to go!
+- 1: Copy neccessary files
+    - Copy ``libappearancecell.h`` to ``$THEOS/include/libappearancecell`` 
+    - Copy ``libappearancecell.dylib`` to ``$THEOS/lib``
+- 2: Link libappearancecell in your bundle
     - Add ``appearancecell`` to your LIBRARIES in Preferences Makefile
     - Example:
         ```
         MyBundle_LIBRARIES = appearancecell
         ```
-- 4: Import libappearancecell
+- 3: Import libappearancecell
     ```objc
     #import <libappearancecell/libappearancecell.h>
     ```
-- 5: Check out the example below for how to use it in your Preferences!
+- 4: Check out the example below for how to use it in your Preferences!
 
 ## Documentation
 ### AppearanceSelectionTableCell
