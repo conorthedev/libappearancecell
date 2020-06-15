@@ -15,14 +15,27 @@
             <string>PSDefaultCell</string>
             <key>cellClass</key>
             <string>AppearanceSelectionTableCell</string>
-			<key>firstOptionName</key>
-			<string>Option 1</string>
-			<key>secondOptionName</key>
-			<string>Option 2</string>
-			<key>firstOptionImage</key>
-			<string>/Library/PreferenceBundles/libappearancecell_demo.bundle/demo.png</string>
-			<key>secondOptionImage</key>
-			<string>/Library/PreferenceBundles/libappearancecell_demo.bundle/demo.png</string>
+            <key>options</key>
+            <array>
+                <dict>
+                    <key>text</key>
+                    <string>Light</string>
+                    <key>image</key>
+                    <string>light.png</string>
+                </dict>
+                <dict>
+                    <key>text</key>
+                    <string>Dark</string>
+                    <key>image</key>
+                    <string>dark.png</string>
+                </dict>
+                <dict>
+                    <key>text</key>
+                    <string>Default</string>
+                    <key>image</key>
+                    <string>default.png</string>
+                </dict>
+            </array>
 			<key>defaults</key>
 			<string>me.conorthedev.libappearancecell.demo</string>
 			<key>PostNotification</key>

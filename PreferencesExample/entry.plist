@@ -15,7 +15,7 @@
 		<key>isController</key>
 		<true/>
 		<key>label</key>
-		<string>libappearancecell_demo</string>
+		<string>libappearancecell</string>
 	</dict>
 </dict>
 </plist>
