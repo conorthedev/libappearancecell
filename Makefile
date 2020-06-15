@@ -14,7 +14,7 @@ after-all::
 	cp .theos/obj/debug/libappearancecell.dylib $(THEOS)/lib
 	mkdir -p $(THEOS_STAGING_DIR)/usr/include/libappearancecell
 	cp ./public/*.h $(THEOS_STAGING_DIR)/usr/include/libappearancecell
-	cp -r ./public $(THEOS)/include/libappearancecell
+	cp -r ./public/*.h $(THEOS)/include/libappearancecell/libappearancecell
 
 # SUBPROJECTS += PreferencesExample
 
