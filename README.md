@@ -7,20 +7,25 @@ libappearancecell is a library for jailbroken iOS devices that allows developers
 The setup of libappearancecell is very simple, just follow these 5 simple steps and you should be good to go!
 - 1: Clone or [download](https://github.com/cbyrne/libappearancecell/archive/master.zip) this repository
     - ``git clone https://github.com/cbyrne/libappearancecell.git``
-- 2: ``cd libapperancecell && make do``
-    - This will setup libappearancecell inside theos and will install it to your device.
+- 2: Copy neccessary files and install libappearancecell to your device
+    - ``cd libapperancecell && make do``
     - **Make sure you have the THEOS_DEVICE_IP variable set**
-- 3: Add ``$(BUNDLE_NAME)_LIBRARIES = appearancecell`` to your Preferences Makefile
-- 4: Import AppearanceSelectionTableCell.h
-    - ```objc
-        #import <libappearancecell/libappearancecell.h>
-      ```
+- 3: Link libappearancecell in your bundle
+    - Add ``appearancecell`` to your LIBRARIES in Preferences Makefile
+    - Example:
+        ```
+        MyBundle_LIBRARIES = appearancecell
+        ```
+- 4: Import libappearancecell
+    ```objc
+    #import <libappearancecell/libappearancecell.h>
+    ```
 - 5: Check out the example below for how to use it in your Preferences!
 
 ## Documentation
 ### AppearanceSelectionTableCell
-This is the main class for libappearancecell, it handles everything.
-+ Example of usage in a Preferences Specifier:
+This is the main class for libappearancecell, it handles everything
++ Example of usage in a Preferences Plist:
 ```xml
 <dict>
     <key>cell</key>
@@ -58,7 +63,8 @@ This is the main class for libappearancecell, it handles everything.
     <integer>160</integer>
 </dict>
 ```
-#### All keys listed above are *required*, failing to supply these will make it not work.
+
+**Actual Documentation is coming soon!**
 
 ## Preference Bundle Example
 If you're a bit stuck on the integration, there's an example of a working Preference Bundle [here](https://github.com/cbyrne/libappearancecell/tree/master/PreferencesExample).
