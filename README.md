@@ -70,4 +70,4 @@ This is the main class for libappearancecell, it handles everything
 **Actual Documentation is coming soon!**
 
 ## Preference Bundle Example
-If you're a bit stuck on the integration, there's an example of a working Preference Bundle [here](https://github.com/cbyrne/libappearancecell/tree/master/PreferencesExample).
+If you're a bit stuck on the integration, there's an example of a working Preference Bundle [here](https://github.com/cbyrne/libappearancecell/tree/master/Example).
