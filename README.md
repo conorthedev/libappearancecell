@@ -63,7 +63,7 @@ This is the main class for libappearancecell, it handles everything
     <key>key</key>
     <string>appearance</string>
     <key>height</key>
-    <integer>160</integer>
+    <integer>210</integer>
 </dict>
 ```
 
