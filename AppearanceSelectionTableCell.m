@@ -30,15 +30,21 @@ NSUserDefaults *userDefaults;
         [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UIRemoveControlMultiNotCheckedImage.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UITintedCircularButtonCheckmark.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
 
-        if(tintColor) {
-            self.checkmarkButton.tintColor = [UIColor colorFromHexString:tintColor];
+        if(self.checkmarkButton.selected) {
+            if(tintColor) {
+                self.checkmarkButton.tintColor = [UIColor colorFromHexString:tintColor];
+            } else {
+                self.checkmarkButton.tintColor = [UIColor systemBlueColor];
+            }
+        } else {
+            self.checkmarkButton.tintColor = [UIColor systemGrayColor];
         }
 
         self.iconView = [[UIImageView alloc] initWithImage:self.iconImage];
         self.iconView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.iconView.heightAnchor constraintEqualToConstant:85].active = true;
+        [self.iconView.heightAnchor constraintEqualToConstant:120.5].active = true;
 
-        [self.captionLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+        [self.captionLabel setFont:[UIFont systemFontOfSize:17.0f]];
         [self.captionLabel.heightAnchor constraintEqualToConstant:20].active = true;
 
         if (@available(iOS 13.0, *)) {
@@ -55,7 +61,7 @@ NSUserDefaults *userDefaults;
         self.contentStackview = [[UIStackView alloc] init];
         self.contentStackview.axis = UILayoutConstraintAxisVertical;
         self.contentStackview.alignment = UIStackViewAlignmentCenter;
-        self.contentStackview.spacing = 5;
+        self.contentStackview.spacing = 8;
 
         [self.contentStackview addArrangedSubview:self.iconView];
         [self.contentStackview addArrangedSubview:self.captionLabel];
@@ -64,32 +70,41 @@ NSUserDefaults *userDefaults;
         self.contentStackview.translatesAutoresizingMaskIntoConstraints = false;
         self.translatesAutoresizingMaskIntoConstraints = false;
 
-        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped)];
-        self.tapGestureRecognizer.numberOfTapsRequired = 1;
+        self.tapGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped:)];
+        self.tapGestureRecognizer.minimumPressDuration = 0;
 
         [self addSubview:self.contentStackview];
         [self.contentStackview setUserInteractionEnabled:YES];
         [self.contentStackview addGestureRecognizer:self.tapGestureRecognizer];
 
-        [self.widthAnchor constraintEqualToConstant:85].active = true;
-        [self.iconView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = true;
-        [self.heightAnchor constraintEqualToConstant:140].active = true;
+        [self.iconView.widthAnchor constraintEqualToConstant:85].active = true;
+        [self.widthAnchor constraintEqualToAnchor:self.contentStackview.widthAnchor].active = true;
+        [self.heightAnchor constraintEqualToAnchor:self.contentStackview.heightAnchor].active = true;
     }
 
     return self;
 }
 
-- (void)buttonTapped {
-    [self.feedbackGenerator impactOccurred];
+- (void)buttonTapped:(UILongPressGestureRecognizer *)sender {
+    if(sender.state == UIGestureRecognizerStateBegan) {
+        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.alpha = 0.5;
+        } completion:^(BOOL finished) {}];
+    } else if (sender.state == UIGestureRecognizerStateEnded) {
+        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.alpha = 1;
+            [self.hostController updateForType:self.type];
+        } completion:^(BOOL finished) {}];
 
-    [userDefaults setObject:[NSNumber numberWithInt:self.type] forKey:key];
-    [userDefaults synchronize];
+        [self.feedbackGenerator impactOccurred];
 
-    if(postNotification) {
-        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)postNotification, NULL, NULL, YES);
+        [userDefaults setObject:[NSNumber numberWithInt:self.type] forKey:key];
+        [userDefaults synchronize];
+
+        if(postNotification) {
+            CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)postNotification, NULL, NULL, YES);
+        }
     }
-
-    [self.hostController updateForType:self.type];
 }
 
 @end
@@ -129,7 +144,7 @@ NSUserDefaults *userDefaults;
 
         [self.containerStackView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = true;
         [self.containerStackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = true;
-        [self.heightAnchor constraintEqualToConstant:160].active = true;
+        [self.heightAnchor constraintEqualToConstant:210].active = true;
     }
 
     return self;
@@ -143,6 +158,16 @@ NSUserDefaults *userDefaults;
 - (void)updateForType:(int)type {
     for (AppearanceTypeStackView *subview in self.containerStackView.arrangedSubviews) {
         subview.checkmarkButton.selected = subview.type == type;
+
+        if(subview.checkmarkButton.selected) {
+            if(tintColor) {
+                subview.checkmarkButton.tintColor = [UIColor colorFromHexString:tintColor];
+            } else {
+                subview.checkmarkButton.tintColor = [UIColor systemBlueColor];
+            }
+        } else {
+            subview.checkmarkButton.tintColor = [UIColor systemGrayColor];
+        }
     }
 }
 

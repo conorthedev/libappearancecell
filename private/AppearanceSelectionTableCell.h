@@ -18,9 +18,9 @@
 @property(nonatomic, retain) UIStackView *contentStackview;
 @property(nonatomic, retain) AppearanceSelectionTableCell *hostController;
 @property(nonatomic, retain) UIImpactFeedbackGenerator *feedbackGenerator;
-@property(nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
+@property(nonatomic, retain) UILongPressGestureRecognizer *tapGestureRecognizer;
 @property(nonatomic, assign) int type;
 
 - (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text;
-- (void)buttonTapped;
+- (void)buttonTapped:(UILongPressGestureRecognizer *)sender;
 @end
