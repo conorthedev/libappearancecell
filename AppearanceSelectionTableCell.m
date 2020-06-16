@@ -80,7 +80,9 @@ NSUserDefaults *userDefaults;
     [userDefaults setObject:[NSNumber numberWithInt:self.type] forKey:key];
     [userDefaults synchronize];
 
-    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)postNotification, NULL, NULL, YES);
+    if(postNotification) {
+        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)postNotification, NULL, NULL, YES);
+    }
 
     [self.hostController updateForType:self.type];
 }
