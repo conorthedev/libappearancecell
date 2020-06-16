@@ -1,6 +1,6 @@
 Package: me.conorthedev.libappearancecell
 Name: libappearancecell
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
 Description: A library for that allows developers to use an iOS 13-style appearance selector in their Preferences.
 Maintainer: ConorTheDev <conorthedev@gmail.com>
