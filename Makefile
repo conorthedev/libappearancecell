@@ -5,7 +5,7 @@ include $(THEOS)/makefiles/common.mk
 
 LIBRARY_NAME = libappearancecell
 
-libappearancecell_FILES = AppearanceSelectionTableCell.m
+libappearancecell_FILES = $(wildcard *.m)
 libappearancecell_CFLAGS = -fobjc-arc
 libappearancecell_FRAMEWORKS = UIKit
 libappearancecell_PRIVATE_FRAMEWORKS = Preferences
@@ -16,7 +16,7 @@ after-all::
 	cp libappearancecell.h $(THEOS_STAGING_DIR)/usr/include/libappearancecell
 	cp libappearancecell.h $(THEOS)/include/libappearancecell/libappearancecell
 
-# SUBPROJECTS += PreferencesExample
+# SUBPROJECTS += Example
 
 include $(THEOS_MAKE_PATH)/library.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk

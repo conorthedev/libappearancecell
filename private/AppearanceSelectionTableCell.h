@@ -6,6 +6,10 @@
 + (UIImage*)kitImageNamed:(NSString*)name;
 @end
 
+@interface UIColor (libappearancecell)
++ (UIColor *)colorFromHexString:(NSString *)hexString;
+@end
+
 @interface AppearanceTypeStackView ()
 @property(nonatomic, retain) UIImage *iconImage;
 @property(nonatomic, retain) UIImageView *iconView;

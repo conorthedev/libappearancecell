@@ -3,6 +3,7 @@
 NSString *defaultsIdentifier;
 NSString *postNotification;
 NSString *key;
+NSString *tintColor;
 NSUserDefaults *userDefaults;
 
 @implementation AppearanceTypeStackView
@@ -28,6 +29,10 @@ NSUserDefaults *userDefaults;
         
         [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UIRemoveControlMultiNotCheckedImage.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UITintedCircularButtonCheckmark.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
+
+        if(tintColor) {
+            self.checkmarkButton.tintColor = [UIColor colorFromHexString:tintColor];
+        }
 
         self.iconView = [[UIImageView alloc] initWithImage:self.iconImage];
         self.iconView.contentMode = UIViewContentModeScaleAspectFit;
@@ -99,7 +104,8 @@ NSUserDefaults *userDefaults;
         defaultsIdentifier = specifier.properties[@"defaults"];
         postNotification = specifier.properties[@"PostNotification"];
         key = specifier.properties[@"key"];
-        
+        tintColor = specifier.properties[@"tintColor"];
+
         userDefaults = [[NSUserDefaults alloc] initWithSuiteName:defaultsIdentifier];
         [userDefaults registerDefaults:@{ key : @0 }];
 
