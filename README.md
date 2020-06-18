@@ -26,48 +26,7 @@ The setup of libappearancecell is very simple, just follow these 5 simple steps 
 - 5: Check out the example below for how to use it in your Preferences!
 
 ## Documentation
-### AppearanceSelectionTableCell
-This is the main class for libappearancecell, it handles everything
-+ Example of usage in a Preferences Plist:
-```xml
-<dict>
-    <key>cell</key>
-    <string>PSDefaultCell</string>
-    <key>cellClass</key>
-    <string>AppearanceSelectionTableCell</string>
-    <key>options</key>
-    <array>
-        <dict>
-            <key>text</key>
-            <string>Light</string>
-            <key>image</key>
-            <string>light</string>
-        </dict>
-        <dict>
-            <key>text</key>
-            <string>Dark</string>
-            <key>image</key>
-            <string>dark</string>
-        </dict>
-        <dict>
-            <key>text</key>
-            <string>Default</string>
-            <key>image</key>
-            <string>default</string>
-        </dict>
-    </array>
-    <key>defaults</key>
-    <string>me.conorthedev.libappearancecell.demo</string>
-    <key>PostNotification</key>
-    <string>me.conorthedev.libappearancecell.demo/reload</string>
-    <key>key</key>
-    <string>appearance</string>
-    <key>height</key>
-    <integer>210</integer>
-</dict>
-```
-
-**Actual Documentation is coming soon!**
+[You can find details on setting up and using libappearancecell on the wiki](https://github.com/cbyrne/libappearancecell/wiki)
 
 ## Preference Bundle Example
 If you're a bit stuck on the integration, there's an example of a working Preference Bundle [here](https://github.com/cbyrne/libappearancecell/tree/master/Example).
