@@ -14,7 +14,8 @@ after-all::
 	cp .theos/obj/debug/libappearancecell.dylib $(THEOS)/lib
 	mkdir -p $(THEOS_STAGING_DIR)/usr/include/libappearancecell
 	cp libappearancecell.h $(THEOS_STAGING_DIR)/usr/include/libappearancecell
-	cp libappearancecell.h $(THEOS)/include/libappearancecell/libappearancecell
+	mkdir -p $(THEOS)/include/libappearancecell/
+	cp libappearancecell.h $(THEOS)/include/libappearancecell/libappearancecell.h
 
 # SUBPROJECTS += Example
 
