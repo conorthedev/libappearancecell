@@ -1,28 +1,26 @@
 #import "private/AppearanceSelectionTableCell.h"
 
-NSString *defaultsIdentifier;
-NSString *postNotification;
-NSString *key;
-NSString *tintColor;
-NSUserDefaults *userDefaults;
-
 @implementation AppearanceTypeStackView
 
-- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text {
+- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text andSpecifier:(PSSpecifier *)specifier {
     self = [super init];
     if (self) {
+        self.postNotification = specifier.properties[@"PostNotification"];
+        self.key = specifier.properties[@"key"];
+        self.tintColor = specifier.properties[@"tintColor"];
+        self.defaults = [[NSUserDefaults alloc] initWithSuiteName:specifier.properties[@"defaults"]];
         self.hostController = controller;
         self.captionLabel = [[UILabel alloc] init];
         self.checkmarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.checkmarkButton.frame = CGRectMake(0, 0, 22, 22);
-
         self.feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:(UIImpactFeedbackStyleMedium)];
-        [self.feedbackGenerator prepare];
-
         self.iconImage = image;
         self.captionLabel.text = text;
 
-        int appearanceStyle = [[userDefaults objectForKey:key] intValue];
+        [self.feedbackGenerator prepare];
+        [self.defaults registerDefaults:@{ self.key : @0 }];
+
+        int appearanceStyle = [[self.defaults objectForKey:self.key] intValue];
         self.type = type;
 
         self.checkmarkButton.selected = appearanceStyle == self.type;
@@ -31,8 +29,8 @@ NSUserDefaults *userDefaults;
         [self.checkmarkButton setImage:[[UIImage kitImageNamed:@"UITintedCircularButtonCheckmark.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
 
         if(self.checkmarkButton.selected) {
-            if(tintColor) {
-                self.checkmarkButton.tintColor = [UIColor colorFromHexString:tintColor];
+            if(self.tintColor) {
+                self.checkmarkButton.tintColor = [UIColor colorFromHexString:self.tintColor];
             } else {
                 self.checkmarkButton.tintColor = [UIColor systemBlueColor];
             }
@@ -98,11 +96,11 @@ NSUserDefaults *userDefaults;
 
         [self.feedbackGenerator impactOccurred];
 
-        [userDefaults setObject:[NSNumber numberWithInt:self.type] forKey:key];
-        [userDefaults synchronize];
+        [self.defaults setObject:[NSNumber numberWithInt:self.type] forKey:self.key];
+        [self.defaults synchronize];
 
-        if(postNotification) {
-            CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)postNotification, NULL, NULL, YES);
+        if(self.postNotification) {
+            CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)self.postNotification, NULL, NULL, YES);
         }
     }
 }
@@ -116,13 +114,6 @@ NSUserDefaults *userDefaults;
 
     if (self) {
         self.options = specifier.properties[@"options"];
-        defaultsIdentifier = specifier.properties[@"defaults"];
-        postNotification = specifier.properties[@"PostNotification"];
-        key = specifier.properties[@"key"];
-        tintColor = specifier.properties[@"tintColor"];
-
-        userDefaults = [[NSUserDefaults alloc] initWithSuiteName:defaultsIdentifier];
-        [userDefaults registerDefaults:@{ key : @0 }];
 
         self.containerStackView = [[UIStackView alloc] init];
         self.containerStackView.axis = UILayoutConstraintAxisHorizontal;
@@ -136,7 +127,8 @@ NSUserDefaults *userDefaults;
             AppearanceTypeStackView *stackView = [[AppearanceTypeStackView alloc] initWithType:[self.options indexOfObject:option] 
                                                                                   forController:self 
                                                                                   withImage:[UIImage imageNamed:option[@"image"] inBundle:prefsBundle compatibleWithTraitCollection:NULL]
-                                                                                  andText:option[@"text"]];
+                                                                                  andText:option[@"text"]
+                                                                                  andSpecifier:specifier];
             [self.containerStackView addArrangedSubview:stackView];
         }
 
@@ -160,8 +152,8 @@ NSUserDefaults *userDefaults;
         subview.checkmarkButton.selected = subview.type == type;
 
         if(subview.checkmarkButton.selected) {
-            if(tintColor) {
-                subview.checkmarkButton.tintColor = [UIColor colorFromHexString:tintColor];
+            if(subview.tintColor) {
+                subview.checkmarkButton.tintColor = [UIColor colorFromHexString:subview.tintColor];
             } else {
                 subview.checkmarkButton.tintColor = [UIColor systemBlueColor];
             }

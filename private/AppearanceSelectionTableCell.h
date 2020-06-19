@@ -20,7 +20,12 @@
 @property(nonatomic, retain) UIImpactFeedbackGenerator *feedbackGenerator;
 @property(nonatomic, retain) UILongPressGestureRecognizer *tapGestureRecognizer;
 @property(nonatomic, assign) int type;
+@property(nonatomic, retain) NSString *defaultsIdentifier;
+@property(nonatomic, retain) NSString *postNotification;
+@property(nonatomic, retain) NSString *key;
+@property(nonatomic, retain) NSString *tintColor;
+@property(nonatomic, retain) NSUserDefaults *defaults;
 
-- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text;
+- (AppearanceTypeStackView *)initWithType:(int)type forController:(AppearanceSelectionTableCell *)controller withImage:(UIImage *)image andText:(NSString *)text andSpecifier:(PSSpecifier *)specifier;
 - (void)buttonTapped:(UILongPressGestureRecognizer *)sender;
 @end
