@@ -31,6 +31,7 @@
         self.iconView.image = image;
 
         [self addArrangedSubview:self.iconView];
+        [self.iconView.widthAnchor constraintEqualToConstant:60].active = true;
 
         self.captionLabel = [[UILabel alloc] init];
         self.captionLabel.text = text;
@@ -113,7 +114,6 @@
                                                                                   andText:option[@"text"]
                                                                                   andSpecifier:specifier];
             [self.containerStackView addArrangedSubview:stackView];
-            [stackView.widthAnchor constraintEqualToConstant:60].active = true;
             [stackView.topAnchor constraintEqualToAnchor:self.containerStackView.topAnchor constant:16].active = true;
             [stackView.bottomAnchor constraintEqualToAnchor:self.containerStackView.bottomAnchor constant:-16].active = true;
         }
