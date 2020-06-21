@@ -45,6 +45,43 @@
             <key>height</key>
             <integer>210</integer>
         </dict>
+        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Example with Tint Color</string>
+		</dict>
+		<dict>
+            <key>cell</key>
+            <string>PSDefaultCell</string>
+            <key>cellClass</key>
+            <string>AppearanceSelectionTableCell</string>
+            <key>options</key>
+            <array>
+                <dict>
+                    <key>text</key>
+                    <string>Light</string>
+                    <key>image</key>
+                    <string>light</string>
+                </dict>
+                <dict>
+                    <key>text</key>
+                    <string>Dark</string>
+                    <key>image</key>
+                    <string>dark</string>
+                </dict>
+            </array>
+			<key>defaults</key>
+			<string>me.conorthedev.libappearancecell.demo</string>
+			<key>PostNotification</key>
+			<string>me.conorthedev.libappearancecell.demo/reload</string>
+			<key>key</key>
+			<string>appearanceTint</string>
+            <key>height</key>
+            <integer>210</integer>
+            <key>tintColor</key>
+            <string>#00FF00</string>
+        </dict>
 	</array>
 	<key>title</key>
 	<string>libappearancecell</string>

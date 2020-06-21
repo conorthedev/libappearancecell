@@ -6,8 +6,8 @@ libappearancecell is a library for jailbroken iOS devices that allows developers
 ## Usage
 The setup of libappearancecell is very simple, just follow these 5 simple steps and you should be good to go!
 - 1: Copy neccessary files
-    - Copy ``libappearancecell.h`` to ``$THEOS/include/libappearancecell`` 
-    - Copy ``libappearancecell.dylib`` to ``$THEOS/lib``
+    - Copy ``Public/libappearancecell.h`` from this repository to ``$THEOS/include/libappearancecell`` 
+    - Copy ``libappearancecell.dylib`` from your device to ``$THEOS/lib``
 - 2: Link libappearancecell in your bundle
     - Add ``appearancecell`` to your LIBRARIES in Preferences Makefile
     - Example:
