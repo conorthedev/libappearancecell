@@ -108,8 +108,8 @@
         self.containerStackView.translatesAutoresizingMaskIntoConstraints = false;
 
         for (NSDictionary *option in self.options) {
-            AppearanceTypeStackView *stackView = [[AppearanceTypeStackView alloc] initWithType:[self.options indexOfObject:option] 
-                                                                                  forController:self 
+            AppearanceTypeStackView *stackView = [[AppearanceTypeStackView alloc] initWithType:[self.options indexOfObject:option]
+                                                                                  forController:self
                                                                                   withImage:[UIImage imageNamed:option[@"image"] inBundle:prefsBundle compatibleWithTraitCollection:NULL]
                                                                                   andText:option[@"text"]
                                                                                   andSpecifier:specifier];
@@ -138,6 +138,12 @@
         subview.checkmarkButton.selected = subview.type == type;
         subview.checkmarkButton.tintColor = (subview.checkmarkButton.selected) ? (subview.tintColor ? [UIColor colorFromHexString:subview.tintColor] : [UIColor systemBlueColor]) : [UIColor systemGrayColor];
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    if (self.containerStackView.spacing != (self.bounds.size.width - (60 * [self.options count])) / ([self.options count] + 1)) self.containerStackView.spacing = (self.bounds.size.width - (60 * [self.options count])) / ([self.options count] + 1);
 }
 
 @end
